@@ -35,12 +35,18 @@ Aplikasi Musiclib ini dibuat menggunakan framework laravel, dimana menggunakan d
 Ketika aplikasi diload, aplikasi akan mengecek apakah redis server menyala atau tidak.
 1. Jika redis server menyala, aplikasi akan mengecek apakah pada redis server ada data cache? Jika ada, maka data yang dipassing ke view adalah data dari redis server. Jika tidak, maka data yang dipassing ke view adalah data dari mysql server. Namun sebelum meload view, data dari mysql server di simpan dahulu ke redis server sebagai data cache.   
 2. Jika redis server mati, maka otomatis data yang dipassing ke view adalah data dari mysql server.
-### 2. Tampilan Aplikasi
+### 2. Tampilan Aplikasi dan Load Time
+Berikut adalah perbandingan tampilan dan load time dari aplikasi saat mengambil data dari mysql server dan redis server.   
 1. Data dari MySQL Cluster   
-   gambar tampilan-sql   
+   ![tampilan-sql](https://github.com/tamtama17/Implementasi-MySQL-Cluster-dan-Redis-Cluster-pada-aplikasi-Bank-Lirik-Musik-berbasis-Laravel/blob/master/gambar/tampilan-sql.png)    
    Waktu load html menggunakan data dari MySQL server :   
-   gambar waktu-sql   
+   ![waktu-sql](https://github.com/tamtama17/Implementasi-MySQL-Cluster-dan-Redis-Cluster-pada-aplikasi-Bank-Lirik-Musik-berbasis-Laravel/blob/master/gambar/waktu-sql.png)    
 2. Data dari Redis Cluster   
-   gambar tampilan-redis   
+   ![tampilan-redis](https://github.com/tamtama17/Implementasi-MySQL-Cluster-dan-Redis-Cluster-pada-aplikasi-Bank-Lirik-Musik-berbasis-Laravel/blob/master/gambar/tampilan-redis.png)    
    Waktu load html menggunakan data dari Redis server :   
-   gambar waktu-redis   
+   ![waktu-redis](https://github.com/tamtama17/Implementasi-MySQL-Cluster-dan-Redis-Cluster-pada-aplikasi-Bank-Lirik-Musik-berbasis-Laravel/blob/master/gambar/waktu-redis.png)    
+
+Terlihat waktu load time saat mengambil data dari mysql server 6862ms, hampir 7 detik. Sedangkat waktu load time saat mengambil data dari redis server hanya 3223ms, kurang dari setengah waktu load time saat mengambil data dari mysql server.
+
+## Kesimpulan
+Dari percobaan diatas, terlihat jelas redis server lebih cepat mengambil data dari pada mysql server. Hal ini dikarenakan redis berjalan pada memori. Namun karena redis berjalan pada memori, redis server tidak disarankan dijadikan database utama karena saat pc/server mati data akan ikut hilang.
