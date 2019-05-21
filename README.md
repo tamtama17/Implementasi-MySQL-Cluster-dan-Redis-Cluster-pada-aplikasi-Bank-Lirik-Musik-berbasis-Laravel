@@ -29,6 +29,18 @@ Semua tahapan instalasi basis data baik MySQL Cluster dan Redis Cluster sudah di
 1. [Dokumentasi Implementasi MySQL Cluster](https://github.com/tamtama17/Implementasi-MySQL-Cluster)   
 2. [Dokumentasi Implementasi Redis](https://github.com/tamtama17/Impelemtasi-Redis)   
 
-## Konfigurasi
 ## Penjelasan Aplikasi
-## Tes Failover
+Aplikasi Musiclib ini dibuat menggunakan framework laravel, dimana menggunakan dua database yaitu MySQL Cluster sebagai database utama dan Redis Cluster sebagai data cache.
+### 1. Alur Data 
+Ketika aplikasi diload, aplikasi akan mengecek apakah redis server menyala atau tidak.
+1. Jika redis server menyala, aplikasi akan mengecek apakah pada redis server ada data cache? Jika ada, maka data yang dipassing ke view adalah data dari redis server. Jika tidak, maka data yang dipassing ke view adalah data dari mysql server. Namun sebelum meload view, data dari mysql server di simpan dahulu ke redis server sebagai data cache.   
+2. Jika redis server mati, maka otomatis data yang dipassing ke view adalah data dari mysql server.
+### 2. Tampilan Aplikasi
+1. Data dari MySQL Cluster   
+   gambar tampilan-sql   
+   Waktu load html menggunakan data dari MySQL server :   
+   gambar waktu-sql   
+2. Data dari Redis Cluster   
+   gambar tampilan-redis   
+   Waktu load html menggunakan data dari Redis server :   
+   gambar waktu-redis   
